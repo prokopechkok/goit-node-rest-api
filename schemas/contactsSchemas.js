@@ -8,6 +8,10 @@ export const createContactSchema = Joi.object({
 
 export const updateContactSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string(),
+  email: Joi.string().email().message({ "string.email": "Wrong email format" }),
   phone: Joi.string(),
-});
+})
+  .min(1)
+  .message({
+    "object.min": "Body must have at least one field",
+  });
