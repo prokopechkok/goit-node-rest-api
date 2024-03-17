@@ -1,10 +1,11 @@
 import Joi from "joi";
 import { phonePattern } from "../constants/contacts-constants.js";
+import { emailRegexp } from "../constants/user-constants.js";
 
 export const createContactSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string()
-    .email()
+    .pattern(emailRegexp)
     .message({ "string.email": "Wrong email format" })
     .required(),
   phone: Joi.string()
@@ -19,7 +20,9 @@ export const createContactSchema = Joi.object({
 
 export const updateContactSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string().email().message({ "string.email": "Wrong email format" }),
+  email: Joi.string()
+    .pattern(phonePattern)
+    .message({ "string.email": "Wrong email format" }),
   phone: Joi.string().pattern(phonePattern).messages({
     "string.pattern.base":
       "Phone number formatted incorrectly. Correct format is (000) 000-0000",
