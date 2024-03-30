@@ -11,6 +11,7 @@ export const userSignUpSchema = Joi.object({
     .pattern(emailRegexp)
     .messages({ "any.required": "Email is required" }),
 });
+
 export const userSignInSchema = Joi.object({
   password: Joi.string()
     .min(6)
@@ -20,4 +21,11 @@ export const userSignInSchema = Joi.object({
     .required()
     .pattern(emailRegexp)
     .messages({ "any.required": "Email is required" }),
+});
+
+export const userEmailSchema = Joi.object({
+  email: Joi.string()
+    .required()
+    .pattern(emailRegexp)
+    .messages({ "any.required": "missing required field email" }),
 });

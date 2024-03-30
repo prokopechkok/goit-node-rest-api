@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 
 import User from "../models/User.js";
 
-export const findUser = (filter) => User.findOne(filter);
+export const findUser = async (filter) => User.findOne(filter);
 
 export const signup = async (data) => {
   const hashedPassword = await bcrypt.hash(data.password, 10);

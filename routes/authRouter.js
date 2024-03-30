@@ -1,9 +1,12 @@
 import express from "express";
 import authController from "../controllers/authControllers.js";
 import validateBody from "../helpers/validateBody.js";
-import { userSignInSchema, userSignUpSchema } from "../schemas/usersSchemas.js";
+import {
+  userSignInSchema,
+  userSignUpSchema,
+  userEmailSchema,
+} from "../schemas/usersSchemas.js";
 import authenticate from "../middlewares/authenticate.js";
-import authControllers from "../controllers/authControllers.js";
 
 const authRouter = express.Router();
 
@@ -11,6 +14,14 @@ authRouter.post(
   "/users/register",
   validateBody(userSignUpSchema),
   authController.signup
+);
+
+authRouter.get("/users/verify/:verificationToken", authController.verify);
+
+authRouter.post(
+  "/users/verify",
+  validateBody(userEmailSchema),
+  authController.verifyResend
 );
 
 authRouter.post(
